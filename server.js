@@ -6,11 +6,20 @@ app.use(express.static("public"));
 app.use(express.json());
 const cors = require("cors");
 app.use(cors());
+const mongoose = require("mongoose");
 
 const upload = multer({ dest: __dirname + "/public/images" });
 
+mongoose
+  .connect(
+    "mongodb+srv://as155:dMusmnoNZyFIi780@csce242.2fpokqq.mongodb.net/test?retryWrites=true&w=majority", 
+    { useNewUrlParser: true, useUnifiedTopology: true } 
+  )
+  .then(() => console.log("Connected to mongodb..."))
+  .catch((err) => console.error("Could not connect to mongodb...", err));
+
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/index.html");
+  res.sendFile(__dirname + "/index.html");
 });
 const animals = [
 {
